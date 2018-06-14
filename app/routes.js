@@ -32,26 +32,26 @@ module.exports = function(app){
  
     // get tweets generally
     apiRoutes.use('/tweets', tweetRoutes);
-    tweetRoutes.get('/', requireAuth, AuthenticationController.roleAuthorization(['reader','creator','editor']), TweetController.getTweets);
-    tweetRoutes.get('/:number', requireAuth, AuthenticationController.roleAuthorization(['reader','creator','editor']), TweetController.getSpecificTweets);
-    tweetRoutes.get('/:id', requireAuth, AuthenticationController.roleAuthorization(['reader','creator','editor']), TweetController.getTweetById);
-    tweetRoutes.post('/postTweet', requireAuth, AuthenticationController.roleAuthorization(['reader','creator','editor']), TweetController.postTweet);
-    tweetRoutes.get('/good/:number', requireAuth, AuthenticationController.roleAuthorization(['reader','creator','editor']),  TweetController.getGoodTweets);
-    tweetRoutes.get('/bad/:number',  requireAuth, AuthenticationController.roleAuthorization(['reader','creator','editor']), TweetController.getBadTweets);
+    tweetRoutes.get('/', requireAuth, AuthenticationController.roleAuthorization(['user','csr','admin','god']), TweetController.getTweets);
+    tweetRoutes.get('/:number', requireAuth, AuthenticationController.roleAuthorization(['user','csr','admin','god']), TweetController.getSpecificTweets);
+    tweetRoutes.get('/:id', requireAuth, AuthenticationController.roleAuthorization(['user','csr','admin','god']), TweetController.getTweetById);
+    tweetRoutes.post('/postTweet', requireAuth, AuthenticationController.roleAuthorization(['user','csr','admin','god']), TweetController.postTweet);
+    tweetRoutes.get('/good/:number', requireAuth, AuthenticationController.roleAuthorization(['user','csr','admin','god']),  TweetController.getGoodTweets);
+    tweetRoutes.get('/bad/:number',  requireAuth, AuthenticationController.roleAuthorization(['user','csr','admin','god']), TweetController.getBadTweets);
     tweetRoutes.get('/byUser/:user',   TweetController.getTweetsByUser);
 
     // get and post responses
     apiRoutes.use('/responses', responseRoutes);
-    responseRoutes.post('/saveResponse', requireAuth, AuthenticationController.roleAuthorization(['reader','creator','editor']), ResponseController.saveResponse);
-    responseRoutes.get('/getResponses/:user', requireAuth, AuthenticationController.roleAuthorization(['reader','creator','editor']), ResponseController.getResponses);
+    responseRoutes.post('/saveResponse', requireAuth, AuthenticationController.roleAuthorization(['user','csr','admin','god']), ResponseController.saveResponse);
+    responseRoutes.get('/getResponses/:user', requireAuth, AuthenticationController.roleAuthorization(['user','csr','admin','god']), ResponseController.getResponses);
 
     // get tweets belonging to this csr
     apiRoutes.use('/myTweets', myTweetRoutes);
-    myTweetRoutes.get('/:user', requireAuth, AuthenticationController.roleAuthorization(['reader','creator','editor']), TweetController.getMyTweets);
+    myTweetRoutes.get('/:user', requireAuth, AuthenticationController.roleAuthorization(['user','csr','admin','god']), TweetController.getMyTweets);
     
     // claim tweets
     apiRoutes.use('/claimTweet', claimTweetRoutes);
-    claimTweetRoutes.put('/:tweet', requireAuth, AuthenticationController.roleAuthorization(['reader','creator','editor']), TweetController.claimTweet);
+    claimTweetRoutes.put('/:tweet', requireAuth, AuthenticationController.roleAuthorization(['user','csr','admin','god']), TweetController.claimTweet);
 
     // Set up routes
     app.use('/api', apiRoutes);
