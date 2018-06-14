@@ -13,8 +13,8 @@ var UserSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        enum: ['reader', 'creator', 'editor'],
-        default: 'reader'
+        enum: ['user', 'csr', 'admin', 'god'],
+        default: 'user'
     }
 }, {
     timestamps: true

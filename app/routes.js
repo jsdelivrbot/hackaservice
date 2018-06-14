@@ -18,7 +18,7 @@ module.exports = function(app){
         tweetRoutes = express.Router(),
         responseRoutes = express.Router();
  
-    app.get('/', (req, res) => { res.send('none of ur bznz gtfo :)'); });
+    app.get('/', (req, res) => { res.send('none of ur bznz gtfo :]'); });
 
     // Auth Routes
     apiRoutes.use('/auth', authRoutes);
@@ -47,11 +47,11 @@ module.exports = function(app){
 
     // get tweets belonging to this csr
     apiRoutes.use('/myTweets', myTweetRoutes);
-    myTweetRoutes.get('/:user', TweetController.getMyTweets);
+    myTweetRoutes.get('/:user', requireAuth, AuthenticationController.roleAuthorization(['reader','creator','editor']), TweetController.getMyTweets);
     
     // claim tweets
     apiRoutes.use('/claimTweet', claimTweetRoutes);
-    claimTweetRoutes.put('/:tweet', TweetController.claimTweet);
+    claimTweetRoutes.put('/:tweet', requireAuth, AuthenticationController.roleAuthorization(['reader','creator','editor']), TweetController.claimTweet);
 
     // Set up routes
     app.use('/api', apiRoutes);
