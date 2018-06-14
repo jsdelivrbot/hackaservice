@@ -33,7 +33,7 @@ module.exports = function(app){
     // get tweets generally
     apiRoutes.use('/tweets', tweetRoutes);
     tweetRoutes.get('/', requireAuth, AuthenticationController.roleAuthorization(['reader','creator','editor']), TweetController.getTweets);
-    tweetRoutes.get('/:number', TweetController.getSpecificTweets);
+    tweetRoutes.get('/:number', requireAuth, AuthenticationController.roleAuthorization(['reader','creator','editor']), TweetController.getSpecificTweets);
     tweetRoutes.get('/:id', requireAuth, AuthenticationController.roleAuthorization(['reader','creator','editor']), TweetController.getTweetById);
     tweetRoutes.post('/postTweet', requireAuth, AuthenticationController.roleAuthorization(['reader','creator','editor']), TweetController.postTweet);
     tweetRoutes.get('/good/:number', requireAuth, AuthenticationController.roleAuthorization(['reader','creator','editor']),  TweetController.getGoodTweets);
