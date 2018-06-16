@@ -56,7 +56,7 @@ module.exports = function(app){
     claimTweetRoutes.put('/:tweet', requireAuth, AuthenticationController.roleAuthorization(['user','csr','admin','god']), TweetController.claimTweet);
 
     apiRoutes.use('/profile', profileRoutes);
-    profileRoutes.get('/:user', requireAuth, AuthenticationController.roleAuthorization(['user','csr','admin','god']), profileController.getProfile);
+    profileRoutes.get('/:user', requireAuth, AuthenticationController.roleAuthorization(['user','csr','admin','god']), ProfileController.getProfile);
         
     // Set up routes
     app.use('/api', apiRoutes);
