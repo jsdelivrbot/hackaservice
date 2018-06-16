@@ -2,7 +2,8 @@ var AuthenticationController = require('./controllers/authentication'),
     express = require('express'),
     passportService = require('./config/passport'),
     passport = require('passport'),
-    ResponseController = require('./controllers/responses');
+    ResponseController = require('./controllers/responses'),
+    ProfileController = require('./controllers/profile'),    
     TweetController = require('./controllers/tweets');
 
 var requireAuth = passport.authenticate('jwt', {session: false}),
@@ -16,6 +17,7 @@ module.exports = function(app){
         myTweetRoutes = express.Router(),
         claimTweetRoutes = express.Router(),        
         tweetRoutes = express.Router(),
+        profileRoutes = express.Router(),
         responseRoutes = express.Router();
  
     app.get('/', (req, res) => { res.send('none of ur bznz gtfo :]'); });
@@ -53,6 +55,9 @@ module.exports = function(app){
     apiRoutes.use('/claimTweet', claimTweetRoutes);
     claimTweetRoutes.put('/:tweet', requireAuth, AuthenticationController.roleAuthorization(['user','csr','admin','god']), TweetController.claimTweet);
 
+    apiRoutes.use('/profile', profileRoutes);
+    profileRoutes.get('/:user', requireAuth, AuthenticationController.roleAuthorization(['user','csr','admin','god']), profileController.getProfile);
+        
     // Set up routes
     app.use('/api', apiRoutes);
 }
