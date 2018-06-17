@@ -12,7 +12,6 @@ exports.getProfile = (req, res, next) => {
 exports.updateProfile = (req, res, next) => { 
     console.log('m: ' + req.body);
     console.log(JSON.stringify(req.body));
-    console.log('success: ' + docs);
     User.update({ email: req.body.user.email }, 
     { 
         firstName: req.body.user.fname, 
