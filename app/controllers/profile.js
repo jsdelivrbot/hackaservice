@@ -12,12 +12,13 @@ exports.getProfile = (req, res, next) => {
 exports.updateProfile = (req, res, next) => { 
     console.log('m: ' + req.body);
     console.log(JSON.stringify(req.body));
-    User.update({ email: req.body.email }, 
+    console.log('success: ' + docs);
+    User.update({ email: req.body.user.email }, 
     { 
-        firstName: req.body.fname, 
-        lastName: req.body.lname,
-        email: req.body.email,
-        role: req.body.role
+        firstName: req.body.user.fname, 
+        lastName: req.body.user.lname,
+        email: req.body.user.email,
+        role: req.body.user.role
         }, 
         {}, 
         (err, docs) => {
