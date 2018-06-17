@@ -57,7 +57,7 @@ module.exports = function(app){
 
     apiRoutes.use('/profile', profileRoutes);
     profileRoutes.get('/:user', requireAuth, AuthenticationController.roleAuthorization(['user','csr','admin','god']), ProfileController.getProfile);
-        
+    profileRoutes.put('/updateProfile', requireAuth, AuthenticationController.roleAuthorization(['user','csr','admin','god']), ProfileController.updateProfile);        
     // Set up routes
     app.use('/api', apiRoutes);
 }
