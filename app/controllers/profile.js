@@ -21,11 +21,8 @@ exports.updateProfile = (req, res, next) => {
         role: req.body.user.role
         }, 
         {}, 
-        (err, docs) => {
+        (err) => {
             if (err) console.log(err);
-            console.log('success: ' + docs);
-            console.log('success: ' + JSON.stringify(docs));
-            
-            res.send('successfully updated: ' + docs);
+            res.send('successfully updated: ');
         })
 }
