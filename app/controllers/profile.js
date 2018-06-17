@@ -22,6 +22,9 @@ exports.updateProfile = (req, res, next) => {
         {}, 
         (err, docs) => {
             if (err) console.log(err);
+            console.log('success: ' + docs);
+            console.log('success: ' + JSON.stringify(docs));
+            
             res.send('successfully updated: ' + docs);
         })
 }
