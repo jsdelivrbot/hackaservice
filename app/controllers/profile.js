@@ -10,18 +10,17 @@ exports.getProfile = (req, res, next) => {
 }
 
 exports.updateProfile = (req, res, next) => { 
-    console.log('m: ' + req.body);
-    console.log(JSON.stringify(req.body));
     User.update({ email: req.body.user.email }, 
     { 
         firstName: req.body.user.fName, 
         lastName: req.body.user.lName,
         email: req.body.user.email,
+        lang: req.body.user.lang,
         role: req.body.user.role
-        }, 
-        {}, 
-        (err) => {
-            if (err) console.log(err);
-            res.send('successfully updated: ');
-        })
+    }, 
+    {}, 
+    (err) => {
+        if (err) console.log(err);
+        res.send('successfully updated: ');
+    })
 }

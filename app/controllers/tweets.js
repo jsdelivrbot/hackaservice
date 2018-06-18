@@ -87,16 +87,13 @@ exports.getMyTweets = function(req, res, next){
     });
 }
 exports.claimTweet = function(req, res, next){
-    console.log('aaa3: ' + req.params.tweet);
-    console.log('bbb2: ' + req.body.user);
-    console.log('zap34443');
     Tweet
     .findByIdAndUpdate(
-        req.params.tweet, 
-        { $set: { csr: req.body.user }}, 
-        {}, 
-        function (err, doc) {
-            if (err) throw err;
-            else res.json(doc);
-        });
+    req.params.tweet, 
+    { $set: { csr: req.body.user }}, 
+    {}, 
+    function (err, doc) {
+        if (err) throw err;
+        else res.json(doc);
+    });
 }

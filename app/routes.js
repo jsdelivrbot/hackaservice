@@ -12,13 +12,13 @@ var requireAuth = passport.authenticate('jwt', {session: false}),
 module.exports = function(app){
  
     var apiRoutes = express.Router(),
-        authRoutes = express.Router(),
-        todoRoutes = express.Router(),
-        myTweetRoutes = express.Router(),
-        claimTweetRoutes = express.Router(),        
-        tweetRoutes = express.Router(),
-        profileRoutes = express.Router(),
-        responseRoutes = express.Router();
+    authRoutes = express.Router(),
+    todoRoutes = express.Router(),
+    myTweetRoutes = express.Router(),
+    claimTweetRoutes = express.Router(),        
+    tweetRoutes = express.Router(),
+    profileRoutes = express.Router(),
+    responseRoutes = express.Router();
  
     app.get('/', (req, res) => { res.send('none of ur bznz gtfo :]'); });
 
@@ -58,6 +58,7 @@ module.exports = function(app){
     apiRoutes.use('/profile', profileRoutes);
     profileRoutes.get('/:user', requireAuth, AuthenticationController.roleAuthorization(['user','csr','admin','god']), ProfileController.getProfile);
     profileRoutes.put('/updateProfile', requireAuth, AuthenticationController.roleAuthorization(['user','csr','admin','god']), ProfileController.updateProfile);        
+    
     // Set up routes
     app.use('/api', apiRoutes);
 }
