@@ -19,7 +19,7 @@ exports.saveResponse = (req, res, next) => {
 exports.getResponses = (req, res, next) => { 
     Response
     .find({ csr: req.params.user })
-    .sort({id: -1})
+    .sort({ createdAt: -1})
     .limit(10)
     .exec(function(err, result) {
         if (err) throw err;
