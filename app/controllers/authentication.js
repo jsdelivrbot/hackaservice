@@ -60,6 +60,7 @@ exports.register = function(req, res, next){
         console.log('still gud?');
         console.log(JSON.stringify(user));
         user.save(function(err, user){
+            console.log("all sorts of fucked up: " + JSON.stringify(user));
             if(err){
                 return next(err);
             }
