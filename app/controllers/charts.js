@@ -21,6 +21,7 @@ function dateCompare(x, y) {
 
 exports.getScoreTrend = (req, res, next) => {
 	var today = new Date();
+    today.setDate(todat.getDate() - 2);
     console.log("today: " + today);
 	// Default 1 week of data
 	//var from = today.getDate() - 7;
