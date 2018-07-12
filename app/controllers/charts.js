@@ -6,7 +6,10 @@ exports.getScoreTrend = (req, res, next) => {
     console.log("today: " + today);
 	// Default 1 week of data
 	//var from = today.getDate() - 7;
-	var from = new Date(req.params.from) || today.getDate()-7;
+    var from = today.getDate() - 7;
+    if (req.params.from != null && req.params.from != "") {
+        from = new Date(req.params.from);
+    }
     console.log("from: " + from);
 	// Search dates x: from < x < today
     Tweet
@@ -27,8 +30,6 @@ exports.getScoreTrend = (req, res, next) => {
         	var newDate = new Date(tweet.date);
         	// Move to next object in array
         	if (newDate != date) {
-                console.log("newDate: " + newDate);
-                console.log("date: " + date);
         		avg.averageScore = sum/count;
         		avg.date = date;
         		res2.push(avg);
