@@ -11,7 +11,9 @@ function setUserInfo(request){
         _id: request._id,
         email: request.email,
         role: request.role, 
-        lang: request.lang
+        lang: request.lang,
+        fname: request.fName,
+        lname: request.lName
     };
 }
 exports.login = function(req, res, next){
@@ -27,6 +29,13 @@ exports.register = function(req, res, next){
     var email = req.body.email;
     var password = req.body.password;
     var role = req.body.role;
+    var lang = req.body.lang;
+    let fName = req.body.fName;
+    let lName = req.body.lName;
+    console.log('we gud?');
+    console.log(lang);
+    console.log(fName);
+    console.log(lName);
     if(!email){
         return res.status(422).send({error: 'You must enter an email address'});
     }
@@ -43,9 +52,13 @@ exports.register = function(req, res, next){
         var user = new User({
             email: email,
             password: password,
-            role: role
+            role: role,
+            lang: lang,
+            fName: fName,
+            lName: lName
         });
- 
+        console.log('still gud?');
+        console.log(JSON.stringify(user));
         user.save(function(err, user){
             if(err){
                 return next(err);
