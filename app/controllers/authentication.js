@@ -18,7 +18,11 @@ function setUserInfo(request){
 }
 exports.login = function(req, res, next){
     console.log('test');
-    var userInfo = { _id: req._id, email: req.email, role:req.role };
+    var userInfo = {
+        _id: req._id,
+        email: req.email,
+        role: req.role
+    }
     var userInfo2 = setUserInfo(req.user);
     console.log('moar test');
     res.status(200).json({
@@ -63,10 +67,15 @@ exports.register = function(req, res, next){
         user.save(function(err, user){
             console.log("all sorts of fucked up: " + JSON.stringify(user));
             if(err){ return next(err); }
-            var userInfo = setUserInfo(user);
+            var userInfo = {
+                _id: req._id,
+                email: req.email,
+                role: req.role
+            }
+            var userInfo2 = setUserInfo(req.user);
             res.status(201).json({
                 token: 'JWT ' + generateToken(userInfo),
-                user: userInfo
+                user: userInfo2
             })
         });
     });
