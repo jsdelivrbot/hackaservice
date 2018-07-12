@@ -50,6 +50,7 @@ exports.getScoreTrend = (req, res, next) => {
         while (dateCompare(date, today) < 1) {
             console.log("date: " + date);
             for (; index < result.length; index += 1) {
+                console.log(result[index]);
                 var newDate = new Date(result[index].date);
                 // Go to next date, dates are not equal
                 if (dateCompare(newDate, date) != 0) {
