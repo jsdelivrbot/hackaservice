@@ -25,6 +25,9 @@ function moarInfo(request) {
 exports.login = function(req, res, next){
     var userInfo = setUserInfo(req.user);
     let moarInfo = moarInfo(req.user);
+    console.log('testing');
+    console.log(moarInfo);
+    console.log(JSON.stringify(moarInfo));
     res.status(200).json({
         token: 'JWT ' + generateToken(userInfo),
         user: moarInfo
