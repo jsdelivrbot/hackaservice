@@ -10,37 +10,20 @@ function setUserInfo(request){
     return {
         _id: request._id,
         email: request.email,
-        role: request.role, 
-        lang: request.lang,
-        fname: request.fName,
-        lname: request.lName
+        role: request.role
     };
 }
 exports.login = function(req, res, next){
-    console.log('test');
-    var userInfo = {
-        _id: req._id,
-        email: req.email,
-        role: req.role
-    }
-    var userInfo2 = setUserInfo(req.user);
-    console.log('moar test');
+    var userInfo = setUserInfo(req.user);
     res.status(200).json({
         token: 'JWT ' + generateToken(userInfo),
-        user: userInfo2
+        user: userInfo
     });
 }
 exports.register = function(req, res, next){
     var email = req.body.email;
     var password = req.body.password;
     var role = req.body.role;
-    var lang = req.body.lang;
-    let fName = req.body.fName;
-    let lName = req.body.lName;
-    console.log('we gud?');
-    console.log(lang);
-    console.log(fName);
-    console.log(lName);
     if(!email){
         return res.status(422).send({error: 'You must enter an email address'});
     }
@@ -57,25 +40,17 @@ exports.register = function(req, res, next){
         var user = new User({
             email: email,
             password: password,
-            role: role,
-            lang: lang,
-            firstName: fName,
-            lastName: lName
+            role: role
         });
-        console.log('still gud?');
-        console.log(JSON.stringify(user));
+ 
         user.save(function(err, user){
-            console.log("all sorts of fucked up: " + JSON.stringify(user));
-            if(err){ return next(err); }
-            var userInfo = {
-                _id: req._id,
-                email: req.email,
-                role: req.role
+            if(err){
+                return next(err);
             }
-            var userInfo2 = setUserInfo(req.user);
+            var userInfo = setUserInfo(user);
             res.status(201).json({
                 token: 'JWT ' + generateToken(userInfo),
-                user: userInfo2
+                user: userInfo
             })
         });
     });
@@ -83,11 +58,7 @@ exports.register = function(req, res, next){
  
 exports.roleAuthorization = function(roles){
     return function(req, res, next){
-        var user = {
-            _id: req._id,
-            email: req.email,
-            role: req.role
-        }
+        var user = req.user;
         User.findById(user._id, function(err, foundUser){
             if(err){
                 res.status(422).json({error: 'No user found.'});
