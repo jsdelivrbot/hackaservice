@@ -54,8 +54,8 @@ exports.register = function(req, res, next){
             password: password,
             role: role,
             lang: lang,
-            fName: fName,
-            lName: lName
+            firstName: fName,
+            lastName: lName
         });
         console.log('still gud?');
         console.log(JSON.stringify(user));
