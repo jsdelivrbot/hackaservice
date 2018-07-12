@@ -37,6 +37,7 @@ exports.getScoreTrend = (req, res, next) => {
     .sort({ date: 'asc' })
     .exec(function(err, result) {
         if (err) throw err;
+        console.log("# results: " + result.length);
         // res is a list of avg objects
         var res2 = [];
         // avg will have date and score average
