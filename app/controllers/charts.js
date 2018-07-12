@@ -21,7 +21,7 @@ function dateCompare(x, y) {
 
 exports.getScoreTrend = (req, res, next) => {
 	var today = new Date(); // We always return results through the 12th even when we set an earlier date
-    console.log("today: " + today.toISOString());
+    console.log("today: " + today);
 	// Default 1 week of data
 	//var from = today.getDate() - 7;
     var from = new Date();
@@ -29,12 +29,12 @@ exports.getScoreTrend = (req, res, next) => {
     if (req.params.from != null && req.params.from != "") {
         from = new Date(req.params.from);
     }
-    console.log("from: " + from.toISOString());
+    console.log("from: " + from);
 	// Search dates x: from < x < today
     Tweet
     .find({ date: { 
-        $gte: from.toISOString(), 
-        $lte: today.toISOString() 
+        $gte: from, 
+        $lte: today 
     } })
     .sort({ date: 'asc' })
     .exec(function(err, result) {
