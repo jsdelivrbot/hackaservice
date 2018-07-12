@@ -18,7 +18,7 @@ function setUserInfo(request){
 }
 exports.login = function(req, res, next){
     console.log('test');
-    var userInfo = setUserInfo({ _id: request._id, email: request.email, role:request.role });
+    var userInfo = setUserInfo({ _id: req._id, email: req.email, role:req.role });
     console.log('moar test');
     res.status(200).json({
         token: 'JWT ' + generateToken(userInfo),
