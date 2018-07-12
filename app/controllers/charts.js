@@ -21,7 +21,6 @@ function dateCompare(x, y) {
 
 exports.getScoreTrend = (req, res, next) => {
 	var today = new Date();
-    today.setDate(today.getDate() - 2);
     console.log("today: " + today);
 	// Default 1 week of data
 	//var from = today.getDate() - 7;
@@ -64,7 +63,7 @@ exports.getScoreTrend = (req, res, next) => {
                 avg.averageScore = sum/count;
             }
             else {
-                avg.averageScore = 0;
+                avg.averageScore = 0.0;
             }
             avg.date = date;
             res2.push(avg);
