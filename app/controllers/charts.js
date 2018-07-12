@@ -29,7 +29,7 @@ exports.getScoreTrend = (req, res, next) => {
         // Perform algorithm and set as averages
         console.log(result.length);
         for (var tweet in result) {
-            console.log(json(tweet));
+            console.log("tweet: " + tweet);
         	var newDate = new Date(tweet.date);
         	// Move to next object in array
         	if (newDate != date) {
