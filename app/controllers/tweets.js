@@ -41,6 +41,7 @@ exports.getTweets = function(req, res, next){
     }); 
 }
 exports.getGoodTweets = function(req, res, next){
+    console.log('aaaaaaah: ' + req.params.lang);
     Tweet
     .find({ score: { $gt: 0 }, csr: null, lang: req.params.lang })
     .sort({id: -1})
@@ -51,8 +52,9 @@ exports.getGoodTweets = function(req, res, next){
     }); 
 }
 exports.getBadTweets = function(req, res, next){
+    console.log('aaaaaaah: ' + req.params.lang);
     Tweet
-    .find({ score: { $lt: 0 }, csr: null })
+    .find({ score: { $lt: 0 }, csr: null, lang: req.params.lang  })
     .sort({id: -1})
     .limit(Number(req.params.number))
     .exec(function(err, result) {
