@@ -13,11 +13,21 @@ function setUserInfo(request){
         role: request.role
     };
 }
+
+function moarInfo(request) {
+    return {
+        _id: request._id,
+        email: request.email,
+        role: request.role,
+        lang: request.lang
+    };
+}
 exports.login = function(req, res, next){
     var userInfo = setUserInfo(req.user);
+    let moarInfo = moarInfo(req.user);
     res.status(200).json({
         token: 'JWT ' + generateToken(userInfo),
-        user: userInfo
+        user: moarInfo
     });
 }
 exports.register = function(req, res, next){
