@@ -5,7 +5,7 @@ exports.getScoreTrend = (req, res, next) => {
 	var today = new Date();
 	// Default 1 week of data
 	//var from = today.getDate() - 7;
-	var from new Date(req.params.from) || today.getDay()-7;
+	var from = new Date(req.params.from) || today.getDay()-7;
 	// Search dates x: from < x < today
     Tweet
     .find({ date: {$gte: from, $lte: today} })
