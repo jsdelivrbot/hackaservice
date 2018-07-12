@@ -15,16 +15,16 @@ exports.getScoreTrend = (req, res, next) => {
     .exec(function(err, result) {
         if (err) throw err;
         // res is a list of avg objects
-        let res2 = [];
+        var res2 = [];
         // avg will have date and score average
-        let avg = new Object();
+        var avg = new Object();
         // Date to iterate
-        let date = from;
-        let sum = 0;
-        let count = 0;
+        var date = from;
+        var sum = 0;
+        var count = 0;
         // Perform algorithm and set as averages
-        for (let tweet in result) {
-        	let newDate = new Date(tweet.date);
+        for (var tweet in result) {
+        	var newDate = new Date(tweet.date);
         	// Move to next object in array
         	if (newDate != date) {
                 console.log("newDate: " + newDate);
