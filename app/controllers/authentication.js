@@ -10,18 +10,19 @@ function setUserInfo(request){
     return {
         _id: request._id,
         email: request.email,
-        role: request.role
-    };
-}
-
-function moarInfo(request) {
-    return {
-        _id: request._id,
-        email: request.email,
         role: request.role,
         lang: request.lang
     };
 }
+
+// function moarInfo(request) {
+//     return {
+//         _id: request._id,
+//         email: request.email,
+//         role: request.role,
+//         lang: request.lang
+//     };
+// }
 exports.login = function(req, res, next){
     var userInfo = setUserInfo(req.user);
     let moarInfo = moarInfo(req.user);
@@ -30,7 +31,7 @@ exports.login = function(req, res, next){
     console.log(JSON.stringify(moarInfo));
     res.status(200).json({
         token: 'JWT ' + generateToken(userInfo),
-        user: moarInfo
+        user: userInfo
     });
 }
 exports.register = function(req, res, next){
