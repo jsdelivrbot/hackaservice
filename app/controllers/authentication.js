@@ -83,7 +83,11 @@ exports.register = function(req, res, next){
  
 exports.roleAuthorization = function(roles){
     return function(req, res, next){
-        var user = req.user;
+        var user = {
+            _id: req._id,
+            email: req.email,
+            role: req.role
+        }
         User.findById(user._id, function(err, foundUser){
             if(err){
                 res.status(422).json({error: 'No user found.'});
