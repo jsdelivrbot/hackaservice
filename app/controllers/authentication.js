@@ -13,17 +13,30 @@ function setUserInfo(request){
         role: request.role
     };
 }
+function setUserInfo2(request) { 
+    console.log('goin in: ' + request.lang);
+    return {
+        _id: request._id,
+        email: request.email,
+        role: request.role,
+        lang: request.lang
+    };
+}
 exports.login = function(req, res, next){
     var userInfo = setUserInfo(req.user);
+    let userObj = setUserInfo2(req.user);
     res.status(200).json({
         token: 'JWT ' + generateToken(userInfo),
-        user: userInfo
+        user: userObj
     });
 }
 exports.register = function(req, res, next){
     var email = req.body.email;
     var password = req.body.password;
     var role = req.body.role;
+    var lang = req.body.lang;
+    console.log('goin in register: ' + req.body);
+    console.log('goin in register2: ' + req.user);
     if(!email){
         return res.status(422).send({error: 'You must enter an email address'});
     }
@@ -47,11 +60,12 @@ exports.register = function(req, res, next){
             if(err){
                 return next(err);
             }
-            var userInfo = setUserInfo(user);
-            res.status(201).json({
+            var userInfo = setUserInfo(req.user);
+            let userObj = setUserInfo2(req.user);
+            res.status(200).json({
                 token: 'JWT ' + generateToken(userInfo),
-                user: userInfo
-            })
+                user: userObj
+            });
         });
     });
 }
