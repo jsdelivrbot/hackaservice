@@ -63,8 +63,10 @@ module.exports = function(app){
 
     // get chart info
     apiRoutes.use('/charts', chartRoutes);
-    chartRoutes.get('/',  ChartController.getScoreTrend);
-    chartRoutes.get('/:from',ChartController.getScoreTrend);
+    chartRoutes.get('/', ChartController.getScoreTrend);
+    chartRoutes.get('/trend', ChartController.getScoreTrend);
+    chartRoutes.get('/recent', ChartController.getLast100);
+    chartRoutes.get('/:from', ChartController.getScoreTrend);
     //profileRoutes.get('/:from/:to', requireAuth, AuthenticationController.roleAuthorization(['user','csr','admin','god']), ProfileController.getProfile);
     
     // Set up routes

@@ -20,8 +20,7 @@ function dateCompare(x, y) {
 }
 
 exports.getScoreTrend = (req, res, next) => {
-	var today = new Date();
-    today.setDate(today.getDate() - 2);
+	var today = new Date(); // We always return results through the 12th even when we set an earlier date
     console.log("today: " + today);
 	// Default 1 week of data
 	//var from = today.getDate() - 7;
@@ -78,4 +77,21 @@ exports.getScoreTrend = (req, res, next) => {
 
         res.json(res2);
     });
+}
+
+exports.getLast100 = (req, res, next) => {
+    Tweet
+    .sort({id: -1})
+    .limit(100)
+    .exec(function(err, result) {
+        if (err) throw err;
+        var res2 = [];
+        for (var tweet in result) {
+            var obj = new Object();
+            obj.score = result[tweet].score;
+            obj.tweetID = result[tweet].id;
+            res2.push(obj);
+        }
+        res.json(res2);
+    }); 
 }
