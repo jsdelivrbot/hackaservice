@@ -18,7 +18,7 @@ function setUserInfo(request){
 }
 exports.login = function(req, res, next){
     console.log('test');
-    var userInfo = setUserInfo(req.user);
+    var userInfo = setUserInfo({ _id: request._id, email: request.email, role:request.role });
     console.log('moar test');
     res.status(200).json({
         token: 'JWT ' + generateToken(userInfo),
@@ -61,9 +61,7 @@ exports.register = function(req, res, next){
         console.log(JSON.stringify(user));
         user.save(function(err, user){
             console.log("all sorts of fucked up: " + JSON.stringify(user));
-            if(err){
-                return next(err);
-            }
+            if(err){ return next(err); }
             var userInfo = setUserInfo(user);
             res.status(201).json({
                 token: 'JWT ' + generateToken(userInfo),

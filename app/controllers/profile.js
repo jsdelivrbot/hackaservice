@@ -10,6 +10,9 @@ exports.getProfile = (req, res, next) => {
 }
 
 exports.updateProfile = (req, res, next) => { 
+    console.log('god damn');
+    console.log(JSON.stringify(req.body.user));
+    console.log(JSON.stringify(req.body));
     User.update({ email: req.body.user.email }, 
     { 
         firstName: req.body.user.fName, 
