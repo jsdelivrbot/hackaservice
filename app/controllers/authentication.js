@@ -10,11 +10,14 @@ function setUserInfo(request){
     return {
         _id: request._id,
         email: request.email,
-        role: request.role
+        role: request.role, 
+        lang: request.lang
     };
 }
 exports.login = function(req, res, next){
+    console.log('test');
     var userInfo = setUserInfo(req.user);
+    console.log('moar test');
     res.status(200).json({
         token: 'JWT ' + generateToken(userInfo),
         user: userInfo
