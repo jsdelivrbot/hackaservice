@@ -24,23 +24,27 @@ exports.getScoreTrend = (req, res, next) => {
         var avg = new Object();
         // Date to iterate
         var date = from;
-        var sum = 0;
+        var sum = 0.0;
         var count = 0;
-        // Perform algorithm and set as averages
-        for (var tweet in result) {
-        	var newDate = new Date(result[tweet].date);
-        	// Move to next object in array
-        	if (newDate.getMonth() != date.getMonth() || newDate.getFullYear() != date.getFullYear() || newDate.getDate() != date.getDate()) {
-                console.log("newDate: " + newDate + " vs date: " + date);
-        		avg.averageScore = sum/count;
-        		avg.date = date;
-        		res2.push(avg);
-        		date = newDate;
-        		sum = 0;
-        		count = 0;
-        	}
-        	sum += result[tweet].score;
-        	count += 1;
+        var index = 0;
+        while (date <= today) {
+            for (; index < result.length; index += 1) {
+                var newDate = new Date(result[index].date);
+                // Go to next date
+                if (newDate.getMonth() != date.getMonth() || newDate.getFullYear() != date.getFullYear() || newDate.getDate() != date.getDate()) {
+                    break;
+                }
+                sum += result[index].score;
+                count += 1;
+            }
+            // Increment date
+            avg.averageScore = sum/count;
+            avg.date = date;
+            res2.push(avg);
+            sum = 0.0;
+            count = 0;
+            avg = new Object();
+            date.setDate(date.getDate() + 1);
         }
 
         res.json(res2);
