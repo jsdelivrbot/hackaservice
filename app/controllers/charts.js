@@ -6,7 +6,7 @@ exports.getScoreTrend = (req, res, next) => {
     console.log("today: " + today);
 	// Default 1 week of data
 	//var from = today.getDate() - 7;
-	var from = new Date(req.params.from) || today.getDay()-7;
+	var from = new Date(req.params.from) || today.getDate()-7;
     console.log("from: " + from);
 	// Search dates x: from < x < today
     Tweet
