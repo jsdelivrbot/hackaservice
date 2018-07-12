@@ -1,6 +1,7 @@
 const Tweet = require('../models/tweet');
 
-exports.getScoreTrend = (req, res, next) => {
+exports.getScoreTrend = function(req, res, next) => {
+	console.log("At least we got here!");
 	var today = new Date();
 	// Default 1 week of data
 	//var from = today.getDate() - 7;
