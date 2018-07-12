@@ -1,9 +1,26 @@
 const Tweet = require('../models/tweet');
 
+function dateCompare(x, y) {
+    if (x.getDate() == y.getDate() && x.getMonth == y.getMonth && x.getFullYear == y.getFullYear) {
+        return 0;
+    }
+    else if (
+        // Same month & year, different date
+        (x.getFullYear() == y.getFullYear() && x.getMonth() == y.getMonth() && x.getDate() < y.getDate())
+        // Same year, different month
+        || (x.getFullYear() == y.getFullYear() && x.getMonth() < y.getMonth())
+        // Different year
+        || (x.getFullYear() < y.getFullYear()) 
+    ) {
+        return -1;
+    }
+    else {
+        return 1;
+    }
+}
+
 exports.getScoreTrend = (req, res, next) => {
-	console.log("At least we got here!");
 	var today = new Date();
-    today.setDate(today.getDate() - 1);
     console.log("today: " + today);
 	// Default 1 week of data
 	//var from = today.getDate() - 7;
@@ -28,12 +45,13 @@ exports.getScoreTrend = (req, res, next) => {
         var sum = 0.0;
         var count = 0;
         var index = 0;
-        while (date <= today) {
+        // Loop until date passes today
+        while (dateCompare(date, today) < 1) {
             console.log("date: " + date);
             for (; index < result.length; index += 1) {
                 var newDate = new Date(result[index].date);
-                // Go to next date
-                if (newDate.getMonth() != date.getMonth() || newDate.getFullYear() != date.getFullYear() || newDate.getDate() != date.getDate()) {
+                // Go to next date, dates are not equal
+                if (dateCompare(newDate, date) != 0) {
                     break;
                 }
                 sum += result[index].score;
