@@ -27,7 +27,7 @@ exports.getScoreTrend = (req, res, next) => {
         	if (newDate != date) {
         		avg.averageScore = sum/count;
         		avg.date = date;
-        		res.push(avg);
+        		res2.push(avg);
         		date = newDate;
         		sum = 0;
         		count = 0;
