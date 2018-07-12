@@ -19,6 +19,7 @@ module.exports = function(app){
     claimTweetRoutes = express.Router(),        
     tweetRoutes = express.Router(),
     profileRoutes = express.Router(),
+    chartRoutes = express.Router(),
     responseRoutes = express.Router();
 
     app.get('/', (req, res) => { res.send('none of ur bznz gtfo :]'); });
