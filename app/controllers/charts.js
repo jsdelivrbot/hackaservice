@@ -28,6 +28,7 @@ exports.getScoreTrend = (req, res, next) => {
         var count = 0;
         var index = 0;
         while (date <= today) {
+            console.log("date: " + date);
             for (; index < result.length; index += 1) {
                 var newDate = new Date(result[index].date);
                 // Go to next date
@@ -44,7 +45,7 @@ exports.getScoreTrend = (req, res, next) => {
             sum = 0.0;
             count = 0;
             avg = new Object();
-            date.setDate(date.getDate() + 1);
+            date = new Date(date.setDate(date.getDate() + 1));
         }
 
         res.json(res2);
