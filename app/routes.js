@@ -4,7 +4,8 @@ var AuthenticationController = require('./controllers/authentication'),
     passport = require('passport'),
     ResponseController = require('./controllers/responses'),
     ProfileController = require('./controllers/profile'),    
-    TweetController = require('./controllers/tweets');
+    TweetController = require('./controllers/tweets'),
+    ChartController = require('./controllers/charts');
 
 var requireAuth = passport.authenticate('jwt', {session: false}),
     requireLogin = passport.authenticate('local', {session: false});
@@ -19,7 +20,7 @@ module.exports = function(app){
     tweetRoutes = express.Router(),
     profileRoutes = express.Router(),
     responseRoutes = express.Router();
- 
+
     app.get('/', (req, res) => { res.send('none of ur bznz gtfo :]'); });
 
     // Auth Routes
@@ -57,7 +58,13 @@ module.exports = function(app){
 
     apiRoutes.use('/profile', profileRoutes);
     profileRoutes.get('/:user', requireAuth, AuthenticationController.roleAuthorization(['user','csr','admin','god']), ProfileController.getProfile);
-    profileRoutes.put('/updateProfile', requireAuth, AuthenticationController.roleAuthorization(['user','csr','admin','god']), ProfileController.updateProfile);        
+    profileRoutes.put('/updateProfile', requireAuth, AuthenticationController.roleAuthorization(['user','csr','admin','god']), ProfileController.updateProfile);   
+
+    // get chart info
+    apiRoutes.use('/charts', chartRoutes);
+    chartRoutes.get('/', requireAuth, AuthenticationController.roleAuthorization(['user','csr','admin','god']), ChartController.getScoreTrend);
+    chartRoutes.get('/:from', requireAuth, AuthenticationController.roleAuthorization(['user','csr','admin','god']), ChartController.getScoreTrend);
+    //profileRoutes.get('/:from/:to', requireAuth, AuthenticationController.roleAuthorization(['user','csr','admin','god']), ProfileController.getProfile);
     
     // Set up routes
     app.use('/api', apiRoutes);
