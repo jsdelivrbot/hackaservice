@@ -32,7 +32,10 @@ exports.getScoreTrend = (req, res, next) => {
     console.log("from: " + from);
 	// Search dates x: from < x < today
     Tweet
-    .find({ date: {$gte: from, $lte: today} })
+    .find({ date: { 
+        $gte: from.toISOString(), 
+        $lte: today.toISOString() 
+    } })
     .sort({ date: 'asc' })
     .exec(function(err, result) {
         if (err) throw err;
@@ -81,13 +84,15 @@ exports.getScoreTrend = (req, res, next) => {
 
 exports.getLast100 = (req, res, next) => {
     Tweet
+    .find({})
     .sort({id: -1})
     .limit(100)
     .exec(function(err, result) {
         if (err) throw err;
         var res2 = [];
+        var obj;
         for (var tweet in result) {
-            var obj = new Object();
+            obj = new Object();
             obj.score = result[tweet].score;
             obj.tweetID = result[tweet].id;
             res2.push(obj);
