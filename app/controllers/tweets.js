@@ -42,7 +42,7 @@ exports.getTweets = function(req, res, next){
 }
 exports.getGoodTweets = function(req, res, next){
     Tweet
-    .find({ score: { $gt: 0 }, csr: null })
+    .find({ score: { $gt: 0 }, csr: null, lang: req.params.lang })
     .sort({id: -1})
     .limit(Number(req.params.number))
     .exec(function(err, result) {

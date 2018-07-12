@@ -40,8 +40,8 @@ module.exports = function(app){
     tweetRoutes.get('/:number', requireAuth, AuthenticationController.roleAuthorization(['user','csr','admin','god']), TweetController.getSpecificTweets);
     tweetRoutes.get('/:id', requireAuth, AuthenticationController.roleAuthorization(['user','csr','admin','god']), TweetController.getTweetById);
     tweetRoutes.post('/postTweet', requireAuth, AuthenticationController.roleAuthorization(['user','csr','admin','god']), TweetController.postTweet);
-    tweetRoutes.get('/good/:number', requireAuth, AuthenticationController.roleAuthorization(['user','csr','admin','god']),  TweetController.getGoodTweets);
-    tweetRoutes.get('/bad/:number',  requireAuth, AuthenticationController.roleAuthorization(['user','csr','admin','god']), TweetController.getBadTweets);
+    tweetRoutes.get('/good/:lang/:number', requireAuth, AuthenticationController.roleAuthorization(['user','csr','admin','god']),  TweetController.getGoodTweets);
+    tweetRoutes.get('/bad/:lang/:number',  requireAuth, AuthenticationController.roleAuthorization(['user','csr','admin','god']), TweetController.getBadTweets);
     tweetRoutes.get('/byUser/:user',   TweetController.getTweetsByUser);
 
     // get and post responses
