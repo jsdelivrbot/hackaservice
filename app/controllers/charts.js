@@ -45,7 +45,8 @@ exports.getScoreTrend = (req, res, next) => {
             sum = 0.0;
             count = 0;
             avg = new Object();
-            date = new Date(date.setDate(date.getDate() + 1));
+            date = new Date(date);
+            date.setDate(date.getDate() + 1);
         }
 
         res.json(res2);
