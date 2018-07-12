@@ -13,7 +13,7 @@ exports.getScoreTrend = (req, res, next) => {
     .exec(function(err, result) {
         if (err) throw err;
         // res is a list of avg objects
-        let res = [];
+        let res2 = [];
         // avg will have date and score average
         let avg = new Object();
         // Date to iterate
@@ -36,6 +36,6 @@ exports.getScoreTrend = (req, res, next) => {
         	count += 1;
         }
 
-        res.json(res);
+        res.json(res2);
     });
 }
