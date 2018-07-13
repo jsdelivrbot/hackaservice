@@ -9,6 +9,8 @@ exports.getUsers = (req, res, next) => {
 }
 
 exports.deleteUser = (req, res, next) => {
+	console.log('are we gucci????');
+	console.log(req.body.email);
 	User.deleteOne({ email: req.body.email }).exec(function (err) {
 		if (err) throw err;
 		res.send('successfully deleted: ');

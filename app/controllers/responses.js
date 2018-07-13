@@ -1,6 +1,7 @@
 var Response = require('../models/reponse');
 const bodyParser = require('body-parser');
 exports.saveResponse = (req, res, next) => { 
+    console.log('IN HERE');
     Response.create({
         id: req.body.id,
         response: req.body.response,
