@@ -36,7 +36,6 @@ exports.register = function(req, res, next){
     var role = req.body.role;
     var lang = req.body.lang;
     console.log('goin in register: ' + JSON.stringify(req.body));
-    console.log('goin in register2: ' + req.body.user);
     if(!email){
         return res.status(422).send({error: 'You must enter an email address'});
     }
@@ -60,8 +59,8 @@ exports.register = function(req, res, next){
             if(err){
                 return next(err);
             }
-            var userInfo = setUserInfo(req.user);
-            let userObj = setUserInfo2(req.user);
+            var userInfo = setUserInfo({ _id: req.body._id, email: req.body.email, role: req.body.role});
+            let userObj = setUserInfo2(req.body);
             res.status(200).json({
                 token: 'JWT ' + generateToken(userInfo),
                 user: userObj
