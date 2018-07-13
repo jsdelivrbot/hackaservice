@@ -9,10 +9,10 @@ exports.getUsers = (req, res, next) => {
 }
 
 exports.deleteUser = (req, res, next) => {
-	User.deleteOne({ email: req.body.email }).exec(function (err)) {
+	User.deleteOne({ email: req.body.email }).exec(function (err) {
 		if (err) throw err;
 		res.send('successfully deleted: ');
-	}
+	});
 }
 
 exports.addUser = (req, res, next) => {
