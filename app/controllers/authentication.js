@@ -35,8 +35,8 @@ exports.register = function(req, res, next){
     var password = req.body.password;
     var role = req.body.role;
     var lang = req.body.lang;
-    console.log('goin in register: ' + req.body);
-    console.log('goin in register2: ' + req.user);
+    console.log('goin in register: ' + JSON.stringify(req.body));
+    console.log('goin in register2: ' + req.body.user);
     if(!email){
         return res.status(422).send({error: 'You must enter an email address'});
     }
