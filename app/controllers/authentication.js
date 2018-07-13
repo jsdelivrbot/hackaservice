@@ -31,6 +31,9 @@ exports.login = function(req, res, next){
     });
 }
 exports.register = function(req, res, next){
+    console.log('wut on earth: ' + JSON.stringify(req.body));
+    var firstName = req.body.fName;
+    var lastName = req.body.lName;
     var email = req.body.email;
     var password = req.body.password;
     var role = req.body.role;
