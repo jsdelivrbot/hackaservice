@@ -21,7 +21,6 @@ function dateCompare(x, y) {
 
 exports.getScoreTrend = (req, res, next) => {
 	var today = new Date(); // We always return results through the 12th even when we set an earlier date
-    console.log("today: " + today);
 	// Default 1 week of data
 	//var from = today.getDate() - 7;
     var from = new Date();
@@ -29,7 +28,6 @@ exports.getScoreTrend = (req, res, next) => {
     if (req.params.from != null && req.params.from != "") {
         from = new Date(req.params.from);
     }
-    console.log("from: " + from);
 	// Search dates x: from < x < today
     Tweet
     .find({ date: { 
@@ -39,7 +37,6 @@ exports.getScoreTrend = (req, res, next) => {
     .sort({ date: 'asc' })
     .exec(function(err, result) {
         if (err) throw err;
-        console.log("# results: " + result.length);
         // res is a list of avg objects
         var res2 = [];
         // avg will have date and score average
@@ -51,7 +48,6 @@ exports.getScoreTrend = (req, res, next) => {
         var index = 0;
         // Loop until date passes today
         while (dateCompare(date, today) < 1) {
-            console.log("date: " + date);
             for (; index < result.length; index += 1) {
                 var newDate = new Date(result[index].date);
                 // Go to next date, dates are not equal
@@ -61,7 +57,6 @@ exports.getScoreTrend = (req, res, next) => {
                 sum += result[index].score;
                 count += 1;
             }
-            console.log(date + ": " + count);
             // Increment date
             if (count != 0) {
                 avg.averageScore = sum/count;
