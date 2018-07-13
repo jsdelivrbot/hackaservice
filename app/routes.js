@@ -6,7 +6,8 @@ var AuthenticationController = require('./controllers/authentication'),
     ProfileController = require('./controllers/profile'),    
     TweetController = require('./controllers/tweets'),
     ChartController = require('./controllers/charts'),
-    ThreatController = require('./controllers/threats');
+    ThreatController = require('./controllers/threats'),
+    GodController = require('./controllers/adminedit');
 
 var requireAuth = passport.authenticate('jwt', {session: false}),
     requireLogin = passport.authenticate('local', {session: false});
@@ -22,7 +23,8 @@ module.exports = function(app){
     profileRoutes = express.Router(),
     chartRoutes = express.Router(),
     responseRoutes = express.Router(),
-    threatRoutes = express.Router();
+    threatRoutes = express.Router(),
+    godRoutes = express.Router();
 
     app.get('/', (req, res) => { res.send('none of ur bznz gtfo :]'); });
 
@@ -73,6 +75,12 @@ module.exports = function(app){
     // get threats
     apiRoutes.use('/threats', threatRoutes);
     threatRoutes.get('/', ThreatController.getThreats);
+
+    // do godly stuff
+    apiRoutes.use('/admin', godRoutes);
+    godRoutes.get('/', GodController.getUsers);
+    godRoutes.post('/delete', GodController.deleteUser);
+    godRoutes.put('/add', GodController.addUser);
 
     // Set up routes
     app.use('/api', apiRoutes);
