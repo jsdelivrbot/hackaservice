@@ -5,7 +5,8 @@ var AuthenticationController = require('./controllers/authentication'),
     ResponseController = require('./controllers/responses'),
     ProfileController = require('./controllers/profile'),    
     TweetController = require('./controllers/tweets'),
-    ChartController = require('./controllers/charts');
+    ChartController = require('./controllers/charts'),
+    ThreatController = require('./controllers/threats');
 
 var requireAuth = passport.authenticate('jwt', {session: false}),
     requireLogin = passport.authenticate('local', {session: false});
@@ -20,7 +21,8 @@ module.exports = function(app){
     tweetRoutes = express.Router(),
     profileRoutes = express.Router(),
     chartRoutes = express.Router(),
-    responseRoutes = express.Router();
+    responseRoutes = express.Router(),
+    threatRoutes = express.Router();
 
     app.get('/', (req, res) => { res.send('none of ur bznz gtfo :]'); });
 
@@ -67,8 +69,11 @@ module.exports = function(app){
     chartRoutes.get('/trend', ChartController.getScoreTrend);
     chartRoutes.get('/recent', ChartController.getLast100);
     chartRoutes.get('/:from', ChartController.getScoreTrend);
-    //profileRoutes.get('/:from/:to', requireAuth, AuthenticationController.roleAuthorization(['user','csr','admin','god']), ProfileController.getProfile);
-    
+
+    // get threats
+    apiRoutes.use('/threats', threatRoutes);
+    threatRoutes.get('/', ThreatController.getThreats);
+
     // Set up routes
     app.use('/api', apiRoutes);
 }
