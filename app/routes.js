@@ -7,6 +7,7 @@ var AuthenticationController = require('./controllers/authentication'),
     TweetController = require('./controllers/tweets'),
     ChartController = require('./controllers/charts'),
     ThreatController = require('./controllers/threats'),
+    CompetitionController = require('./controllers/competition'),
     GodController = require('./controllers/adminedit');
 
 var requireAuth = passport.authenticate('jwt', {session: false}),
@@ -24,6 +25,7 @@ module.exports = function(app){
     chartRoutes = express.Router(),
     responseRoutes = express.Router(),
     threatRoutes = express.Router(),
+    competitionRoutes = express.Router(),
     godRoutes = express.Router();
 
     app.get('/', (req, res) => { res.send('none of ur bznz gtfo :]'); });
@@ -81,6 +83,9 @@ module.exports = function(app){
     godRoutes.get('/', GodController.getUsers);
     godRoutes.post('/delete', GodController.deleteUser);
     godRoutes.put('/add', GodController.addUser);
+
+    apiRoutes.use('/competition', competitionRoutes);
+    godRoutes.get('/', CompetitionController.getTweets);
 
     // Set up routes
     app.use('/api', apiRoutes);
