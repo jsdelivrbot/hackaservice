@@ -85,7 +85,7 @@ module.exports = function(app){
     godRoutes.put('/add', GodController.addUser);
 
     apiRoutes.use('/competition', competitionRoutes);
-    godRoutes.get('/', CompetitionController.getTweets);
+    competitionRoutes.get('/', CompetitionController.getTweets);
 
     // Set up routes
     app.use('/api', apiRoutes);
