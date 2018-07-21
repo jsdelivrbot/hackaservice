@@ -1,6 +1,8 @@
 var Tweet = require('../models/tweet');
 const bodyParser = require('body-parser');
-var Twit = require('twit')
+var Twit = require('twit');
+const Heroku = require('heroku-client')
+const heroku = new Heroku({ token: process.env.HEROKU_API_TOKEN })
 const T = new Twit({
     consumer_key:         process.env.consumer_key,
     consumer_secret:      process.env.consumer_secret,
@@ -8,6 +10,17 @@ const T = new Twit({
     access_token_secret:  process.env.access_token_secret,
     timeout_ms:           60*1000,  // optional HTTP request timeout to apply to all requests.
 });
+exports.changeHandles = (req, res, next) => { 
+    console.log('test4');
+    var data = "";
+    req.on('data', function(chunk){ data += chunk })
+    req.on('end', function(){
+        heroku.patch('/apps/tweettwester/config-vars', { body: { handlesToCheck: data }}).then(app => {
+            console.log('we gud?');
+        })
+        res.send('we gud4?');
+    })
+}
 exports.postTweet = (req, res, next) => { 
     T.post('statuses/update', 
         { 
