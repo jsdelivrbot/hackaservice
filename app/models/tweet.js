@@ -12,7 +12,7 @@ var TweetSchema = new mongoose.Schema({
     magnitude: Number,
     csr: String,
     avatar: String,
-    time : { type : Date, default: '2018-09-03T23:44:49.850Z'}
+    time : Date
 },{
     timestamps: true
 });
