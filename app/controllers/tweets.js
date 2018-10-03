@@ -36,7 +36,7 @@ exports.postTweet = (req, res, next) => {
 exports.getTweetsByUser = function(req, res, next){
     Tweet
     .find({ user: req.params.user })
-    .sort({id: -1})
+    .sort({time: -1})
     .limit(10)
     .exec(function(err, result) {
         if (err) throw err;
@@ -46,7 +46,7 @@ exports.getTweetsByUser = function(req, res, next){
 exports.getTweets = function(req, res, next){
     Tweet
     .find()
-    .sort({id: -1})
+    .sort({time: -1})
     .limit(10)
     .exec(function(err, result) {
         if (err) throw err;
@@ -56,7 +56,7 @@ exports.getTweets = function(req, res, next){
 exports.getGoodTweets = function(req, res, next){
     Tweet
     .find({ score: { $gt: 0 }, csr: null, lang: req.params.lang })
-    .sort({id: -1})
+    .sort({time: -1})
     .limit(Number(req.params.number))
     .exec(function(err, result) {
         if (err) throw err;
@@ -66,7 +66,7 @@ exports.getGoodTweets = function(req, res, next){
 exports.getBadTweets = function(req, res, next){
     Tweet
     .find({ score: { $lt: 0 }, csr: null, lang: req.params.lang  })
-    .sort({id: -1})
+    .sort({time: -1})
     .limit(Number(req.params.number))
     .exec(function(err, result) {
         if (err) throw err;
@@ -76,7 +76,7 @@ exports.getBadTweets = function(req, res, next){
 exports.getSpecificTweets = (req, res) => {
     Tweet
     .find({"csr":null})
-    .sort({id: -1})
+    .sort({time: -1})
     .limit(Number(req.params.number))
     .exec(function(err, result) {
         if (err) throw err;
