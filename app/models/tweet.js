@@ -11,7 +11,8 @@ var TweetSchema = new mongoose.Schema({
     score: Number,
     magnitude: Number,
     csr: String,
-    avatar: String
+    avatar: String,
+    time : { type : Date, default: Date.now }
 },{
     timestamps: true
 });
